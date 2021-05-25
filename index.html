@@ -13,7 +13,7 @@
         list-style: none;
         font-family: 'Jua', sans-serif;
       }
-      .body{
+      body{
         background-color: #fffacd;
       }
       .wrap{
@@ -29,8 +29,13 @@
         font-size: 50px;
       }
       .buttonBox button{
+        border:none;
+        background-color: #5f9ea0;
         font-size: 30px;
-        padding: 5px 20px;
+        padding: 10px 30px;
+      }
+      .buttonBox button:hover{
+        background-color: #ff7f50;
       }
       .cardWrap{
         display: none;
@@ -42,12 +47,14 @@
       .card{
         padding: 15px;
         background-color: #8fbc8f;
+        border-radius: 100px;
         width: 400px;
         height: 400px;
       }
       .cardContent{
         display: none;
-        font-size: 25px;;
+        font-size: 25px;
+        padding: 50px;
       }
       .cardContent.active{
         display: inline-block;
