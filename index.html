@@ -1,11 +1,154 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>영길</title>
-</head>
-<body>
-  <h1>영길영길2</h1>
-  <p>영길영길</p>
-</body>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>todolist</title>
+    <style>
+      *{
+        margin:0;
+        padding:0;
+        list-style: none;
+      }
+      body{
+        background-color: #ccc;
+      }
+      .todolist{
+        text-align: center;
+      }
+      .wrap{
+        border:1px solid #000;
+        margin: 100px auto;
+        width: 800px;
+        height: 700px;
+      }
+      .todowrap{
+      }
+      .todolist__wrap{
+      }
+      .todolist__wrap__input{}
+      .todolist__wrap__button{}
+      .todolist__list{}
+      .todolist__list li{
+        background-color: #fff;
+      }
+      .todolist__list__text{
+        display: none;
+      }
+      .todolist__list__text.active{
+        display: inline;
+      }
+      .todolist__list__input{
+        display: none;
+      }
+      .todolist__list__input.active{
+        display: inline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="todolist">
+      <div class="wrap">
+        <div class="todowrap">
+        <h1>TODOLIST</h1>
+        <div class="todolist__wrap">
+          <input type="text" id="val" size="70" class="todolist__wrap__input">
+          <button id="btn" class="todolist__wrap__button">아아</button>
+          <button id="loadbt">불러오기</button>
+        </div>
+        <ul id="list" class="todolist__list">
+        </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="https://kit.fontawesome.com/8c8c916e20.js" crossorigin="anonymous"></script>
+  <script>
+    var data = {
+          state: 200,
+          data: {
+              list: [
+                  {title: 'TEST1'},
+                  {title: 'TEST2'},
+                  {title: 'TEST3'},
+                  {title: 'TEST4'},
+                  {title: 'TEST5'},
+                  {title: 'TEST6'},
+                  {title: 'TEST7'},
+              ]
+          }
+    }
+
+    var val = document.getElementById("val");
+    var btn = document.getElementById("btn");
+    var list = document.getElementById("list");
+    var loadbt = document.getElementById("loadbt")
+    var todotext = "todolist__list__text";
+    var todoinput = "todolist__list__input";
+    var ac = "active";
+    var modifybt = "fas fa-align-justify";
+    var deletebt = "fas fa-apple-alt";
+
+      // 이벤트 등록
+      var addEvent = function (icon2, li, icon1, span, inp) {
+          icon2.addEventListener("click", function() {
+            list.removeChild(li);
+          })
+          icon1.addEventListener("click", function() {
+            span.className = todotext ;
+            inp.className = todoinput + " " + ac;
+  
+            icon1.addEventListener("click", function() {
+            span.className = todotext + " " + ac;
+            inp.className = todoinput;
+            span.innerHTML = inp.value;
+          })
+          })
+      }
+
+      // 엘레멘트 생성
+      var createLiElement = function (title) {
+        var li = document.createElement("li");
+        var span = document.createElement("span");
+        var inp = document.createElement("input");
+        var icon1 = document.createElement("i");
+        var icon2 = document.createElement("i");
+
+        span.className = todotext + " " + ac;
+        inp.className = todoinput ;
+        icon1.className = modifybt;
+        icon2.className = deletebt;
+
+        span.innerHTML = title;
+                        
+        li.appendChild(span);
+        li.appendChild(inp);
+        li.appendChild(icon1);
+        li.appendChild(icon2);
+
+        // event 
+        addEvent(icon2, li, icon1, span, inp)
+        return li
+      }
+      /**
+       * 추가 이벤트  
+      */
+      btn.addEventListener("click", function(){
+        if(val.value.length){
+          list.append(createLiElement(val.value)
+          );
+        }
+      })
+
+      loadbt.addEventListener("click", function(){
+            if (data.state === 200) {
+              var items = data.data.list
+              var length = items.length;
+              
+              for(var i = 0; i < length; i++){
+                list.append(createLiElement(items[i].title))
+              }
+            }
+      }) 
+      
+  </script>
 </html>
